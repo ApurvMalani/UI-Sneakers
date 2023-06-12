@@ -15,15 +15,6 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Splash(),
         '/2nd': (context) => const Pageshoe(),
       },
-
-
-
-
-
-
-
-
-
     );
   }
 }
