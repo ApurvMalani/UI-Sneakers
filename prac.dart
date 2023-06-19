@@ -30,11 +30,7 @@ class _SplashState extends State<Splash> {
       const SizedBox(
         height: double.infinity,
         width: double.infinity,
-        child: Image(
-          image: NetworkImage('https://www.trybooking.com/UserDa'
-              'ta/Homepage/W/EHI955004-f0823e1de0c3402987eb225c126e19af.jpeg'),
-          fit: BoxFit.fitHeight,
-        ),
+        child:  child: Image.asset('assets/images/splashoff.jpeg', fit: BoxFit.fitHeight,)
       ),
       Container(
           alignment: Alignment.center,
