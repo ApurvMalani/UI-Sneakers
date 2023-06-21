@@ -147,11 +147,11 @@ class HomeState extends State<Home> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50)),
                           ),
-                          child: Image.asset(
-                            'assets/images/bag.png',
-                            width: 24,
-                            height: 24,
-                          )),
+                           child: Icon(MdiIcons.shopping,
+                            size: 24,
+
+                            color: Colors.black,
+                          )),),
                     )
                   ],
                 ),
