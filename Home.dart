@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:clone/Details.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -13,6 +14,9 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   int slect = 0;
+
+
+
 
   var botomicon =[
 
@@ -57,6 +61,10 @@ class HomeState extends State<Home> {
     },
   ];
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -82,7 +90,7 @@ class HomeState extends State<Home> {
 
         backgroundColor: Colors.white,
           inactiveColor: Colors.black,
-          activeColor: Color(0xFF5B9EE1),
+          activeColor: const Color(0xFF5B9EE1),
           height: 83,
            iconSize: 30,
           leftCornerRadius: 20,
@@ -147,11 +155,11 @@ class HomeState extends State<Home> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50)),
                           ),
-                           child: Icon(MdiIcons.shopping,
+                          child: Icon(MdiIcons.shopping,
                             size: 24,
 
                             color: Colors.black,
-                          )),),
+                          )),
                     )
                   ],
                 ),
@@ -276,6 +284,9 @@ class HomeState extends State<Home> {
                             SizedBox(
                               width: 175,
                               height: 245,
+
+
+                              // nav
                               child: Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
@@ -345,22 +356,38 @@ class HomeState extends State<Home> {
                                 ),
                               ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Center(
-                                  heightFactor: 0.750,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 1.0),
-                                    child: Image.asset(
-                                      nikelist[index]['imagenike'],
-                                      width: 170,
-                                      height: 200,
+
+                           //////////////////////////////////////////////////////////////
+                            ////////////
+                            ///////
+                             InkWell(
+
+                               onTap: (){
+
+                                 Navigator.push(context, MaterialPageRoute(
+                                     builder: (context)=> const Deetails()
+
+                                 ));
+
+                               },
+                               child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      heightFactor: 0.750,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 1.0),
+                                        child: Image.asset(
+                                          nikelist[index]['imagenike'],
+                                          width: 170,
+                                          height: 200,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                             ),
+
                           ],
                         );
                       },
@@ -406,55 +433,69 @@ class HomeState extends State<Home> {
                     elevation: 0,
                     // color: Colors.deepPurple.shade100,
 
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 25.0),
-                                  child: Text(
-                                    'BEST CHOICE',
-                                    style: GoogleFonts.quicksand(
-                                        fontWeight: FontWeight.w600,
-                                        color: const Color(0xFF5B9EE1)),
+                    child: InkWell(
+                      splashColor:  Colors.blue.shade100,
+
+                       highlightColor: Colors.blue.shade200,
+                      onTap: (){
+
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context)=>  const Deetails()
+
+                        ));
+
+
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 25.0),
+                                    child: Text(
+                                      'BEST CHOICE',
+                                      style: GoogleFonts.quicksand(
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color(0xFF5B9EE1)),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 25.0),
-                                  child: Text(
-                                    'Nike Air Jordan',
-                                    style: GoogleFonts.openSans(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 24,
-                                        color: Colors.black),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 25.0),
+                                    child: Text(
+                                      'Nike Air Jordan',
+                                      style: GoogleFonts.openSans(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 24,
+                                          color: Colors.black),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 25),
-                                  child: Text(
-                                    '\$849.69',
-                                    style: GoogleFonts.openSans(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 25),
+                                    child: Text(
+                                      '\$849.69',
+                                      style: GoogleFonts.openSans(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Image.asset(
-                              'assets/images/n3.png',
-                              width: 130,
-                              height: 130,
-                            )
-                          ],
-                        )
-                      ],
+                                ],
+                              ),
+                              Image.asset(
+                                'assets/images/n3.png',
+                                width: 130,
+                                height: 130,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -467,8 +508,8 @@ class HomeState extends State<Home> {
             ],
           ),
         ),
-
-         backgroundColor: const Color(0xFFFFF6F5),
+        backgroundColor: const Color(0xFFEDF2F3),
+        // backgroundColor: const Color(0xFFFFF6F5),
       ),
     );
   }
@@ -490,4 +531,5 @@ commonButton({required String imgPath, final VoidCallback? onPressed}) {
         height: 21,
       ));
 }
+
 
