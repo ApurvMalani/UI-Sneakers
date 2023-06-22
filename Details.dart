@@ -69,7 +69,7 @@ class Deetails extends StatelessWidget {
           ),
             Container(
 
-              color: Colors.deepOrange,
+            
               width: 40,
               height: 40,
 
