@@ -1,5 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:clone/Details.dart';
+import 'package:clone/Favourite.dart';
+import 'package:clone/MyCart.dart';
+import 'package:clone/Notification.dart';
+import 'package:clone/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -57,10 +61,16 @@ class HomeState extends State<Home> {
     {
       'imagenike': 'assets/images/n2.png',
       'text2': 'Nike Air Max',
-      'text3': '\$897.99'
-    },
-  ];
+      'text3': '\$897.99',
 
+    },
+    {
+      'imagenike' : 'assets/images/n3.png',
+      'text2' : 'Nike Air Jordan',
+      'text3' : '\$849.69',
+
+    }
+  ];
 
 
 
@@ -71,13 +81,18 @@ class HomeState extends State<Home> {
 
     return SafeArea(
       child: Scaffold(
+        
         floatingActionButton:SizedBox(
           width: 60,
           height: 60,
           child: FloatingActionButton(
             backgroundColor: const Color(0xFF5B9EE1),
             elevation: 10,
-            onPressed: (){},
+            onPressed: (){
+
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> Mycart()));
+
+            },
 
             child: Icon(MdiIcons.shoppingOutline),
 
@@ -100,7 +115,29 @@ class HomeState extends State<Home> {
           notchSmoothness: NotchSmoothness.softEdge,
           icons: botomicon,
          activeIndex: 0,
-          onTap: (index){},
+          onTap: (index) {
+
+           switch(index){
+
+             case 0 :
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=> Home()));
+              break;
+
+             case 1 :
+               Navigator.push(context, MaterialPageRoute(builder: (context)=> Fav()));
+               break;
+
+             case 2 :
+               Navigator.push(context, MaterialPageRoute(builder: (context)=> Notifi()));
+               break;
+
+             case 3 :
+               Navigator.push(context, MaterialPageRoute(builder: (context)=> Profile()));
+               break;
+
+
+           }
+        }
 
         ),
 
@@ -365,7 +402,7 @@ class HomeState extends State<Home> {
                                onTap: (){
 
                                  Navigator.push(context, MaterialPageRoute(
-                                     builder: (context)=> const Deetails()
+                                     builder: (context)=>  Deetails(image : nikelist[index]['imagenike'])
 
                                  ));
 
@@ -377,10 +414,13 @@ class HomeState extends State<Home> {
                                       heightFactor: 0.750,
                                       child: Padding(
                                         padding: const EdgeInsets.only(top: 1.0),
-                                        child: Image.asset(
-                                          nikelist[index]['imagenike'],
-                                          width: 170,
-                                          height: 200,
+                                        child: Hero(
+                                          tag: nikelist[index]['imagenike'],
+                                          child: Image.asset(
+                                            nikelist[index]['imagenike'],
+                                            width: 170,
+                                            height: 200,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -439,13 +479,10 @@ class HomeState extends State<Home> {
                        highlightColor: Colors.blue.shade200,
                       onTap: (){
 
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context)=>  const Deetails()
-
-                        ));
 
 
-                      },
+
+                        },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
