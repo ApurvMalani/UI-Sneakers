@@ -1,4 +1,4 @@
-import 'package:clone/pagescrl.dart';
+import 'package:clone/introscrl/pagescrl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,11 +27,13 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: <Widget>[
-      const SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child:  child: Image.asset('assets/images/splashoff.jpeg', fit: BoxFit.fitHeight,)
-      ),
+      SizedBox(
+          height: double.infinity,
+          width: double.infinity,
+          child: Image.asset(
+            'assets/images/splashoff.jpeg',
+            fit: BoxFit.fitHeight,
+          )),
       Container(
           alignment: Alignment.center,
           child: Text(
