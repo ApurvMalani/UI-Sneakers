@@ -1,13 +1,15 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:clone/bestseller.dart';
 import 'package:clone/home_and_details/details.dart';
 import 'package:clone/bottombar/favourite.dart';
+import 'package:clone/home_and_details/drawer.dart';
 import 'package:clone/myCart.dart';
 import 'package:clone/bottombar/notification.dart';
 import 'package:clone/bottombar/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
+import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,17 +21,11 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   int slect = 0;
 
-
-
-
-  var botomicon =[
-
+  var botomicon = [
     Icons.home_outlined,
-     Icons.favorite_outline_rounded,
+    Icons.favorite_outline_rounded,
     Icons.notifications_none,
     Icons.person_outline
-    
-
   ];
 
   List imagess = [
@@ -62,86 +58,74 @@ class HomeState extends State<Home> {
       'imagenike': 'assets/images/n2.png',
       'text2': 'Nike Air Max',
       'text3': '\$897.99',
-
     },
     {
-      'imagenike' : 'assets/images/n3.png',
-      'text2' : 'Nike Air Jordan',
-      'text3' : '\$849.69',
-
+      'imagenike': 'assets/images/n3.png',
+      'text2': 'Nike Air Jordan',
+      'text3': '\$849.69',
     }
   ];
-
-
-
+  final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
 
   @override
   Widget build(BuildContext context) {
-
-
     return SafeArea(
-      child: Scaffold(
-        
-        floatingActionButton:SizedBox(
+        child: SideMenu(
+          key: _sideMenuKey,
+          background:  Color(0xFF05263b),
+          menu: DrawerW(),
+          child: Scaffold(
+      floatingActionButton: SizedBox(
           width: 60,
           height: 60,
           child: FloatingActionButton(
             backgroundColor: const Color(0xFF5B9EE1),
             elevation: 10,
-            onPressed: (){
-
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> Mycart()));
-
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Bestseller()));
             },
-
             child: Icon(MdiIcons.shoppingOutline),
-
-
           ),
-        ),
-           floatingActionButtonLocation :FloatingActionButtonLocation.centerDocked,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: AnimatedBottomNavigationBar(
+            backgroundColor: Colors.white,
+            inactiveColor: Colors.black,
+            activeColor: const Color(0xFF5B9EE1),
+            height: 83,
+            iconSize: 30,
+            leftCornerRadius: 20,
+            rightCornerRadius: 20,
+            notchMargin: 10,
+            gapLocation: GapLocation.center,
+            notchSmoothness: NotchSmoothness.softEdge,
+            icons: botomicon,
+            activeIndex: 0,
+            onTap: (index) {
+              switch (index) {
+                case 0:
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
+                  break;
 
-        bottomNavigationBar: AnimatedBottomNavigationBar(
+                case 1:
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Fav()));
+                  break;
 
-        backgroundColor: Colors.white,
-          inactiveColor: Colors.black,
-          activeColor: const Color(0xFF5B9EE1),
-          height: 83,
-           iconSize: 30,
-          leftCornerRadius: 20,
-          rightCornerRadius: 20,
-           notchMargin: 10,
-          gapLocation: GapLocation.center,
-          notchSmoothness: NotchSmoothness.softEdge,
-          icons: botomicon,
-         activeIndex: 0,
-          onTap: (index) {
+                case 2:
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Notifi()));
+                  break;
 
-           switch(index){
-
-             case 0 :
-                 Navigator.push(context, MaterialPageRoute(builder: (context)=> Home()));
-              break;
-
-             case 1 :
-               Navigator.push(context, MaterialPageRoute(builder: (context)=> Fav()));
-               break;
-
-             case 2 :
-               Navigator.push(context, MaterialPageRoute(builder: (context)=> Notifi()));
-               break;
-
-             case 3 :
-               Navigator.push(context, MaterialPageRoute(builder: (context)=> Profile()));
-               break;
-
-
-           }
-        }
-
-        ),
-
-        body: SingleChildScrollView(
+                case 3:
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Profile()));
+                  break;
+              }
+            }),
+      body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
@@ -151,9 +135,13 @@ class HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     commonButton(
-                      imgPath: "assets/images/menu (1).png",
-                      onPressed: () {},
-                    ),
+                        imgPath: "assets/images/menu (1).png", onPressed: () {
+                      final _state = _sideMenuKey.currentState;
+                      if (_state!.isOpened)
+                        _state.closeSideMenu();
+                      else
+                        _state.openSideMenu();
+                    }),
                     Column(
                       children: [
                         Text(
@@ -184,7 +172,12 @@ class HomeState extends State<Home> {
                     Container(
                       margin: const EdgeInsets.all(15),
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Mycart()));
+                          },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             backgroundColor: const Color(0xFFFFFFFF),
@@ -192,12 +185,12 @@ class HomeState extends State<Home> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50)),
                           ),
-                          child: Icon(MdiIcons.shopping,
+                          child: Icon(
+                            MdiIcons.shopping,
                             size: 24,
-
                             color: Colors.black,
                           )),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -219,8 +212,7 @@ class HomeState extends State<Home> {
                         fillColor: Color(0xFFFFFFFF),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(40)))),
+                            borderRadius: BorderRadius.all(Radius.circular(40)))),
                   ),
                 ),
               ),
@@ -322,7 +314,6 @@ class HomeState extends State<Home> {
                               width: 175,
                               height: 245,
 
-
                               // nav
                               child: Card(
                                 shape: RoundedRectangleBorder(
@@ -359,8 +350,7 @@ class HomeState extends State<Home> {
                                       children: [
                                         Container(
                                           margin: const EdgeInsets.all(5),
-                                          padding:
-                                              const EdgeInsets.only(left: 3),
+                                          padding: const EdgeInsets.only(left: 3),
                                           child: Text(
                                             nikelist[index]['text3'],
                                             style: GoogleFonts.openSans(
@@ -370,8 +360,7 @@ class HomeState extends State<Home> {
                                           ),
                                         ),
                                         Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 33),
+                                          margin: const EdgeInsets.only(left: 33),
                                           decoration: const BoxDecoration(
                                               color: Color(0xFF5B9EE1),
                                               borderRadius: BorderRadius.only(
@@ -394,40 +383,38 @@ class HomeState extends State<Home> {
                               ),
                             ),
 
-                           //////////////////////////////////////////////////////////////
+                            //////////////////////////////////////////////////////////////
                             ////////////
                             ///////
-                             InkWell(
-
-                               onTap: (){
-
-                                 Navigator.push(context, MaterialPageRoute(
-                                     builder: (context)=>  Deetails(image : nikelist[index]['imagenike'])
-
-                                 ));
-
-                               },
-                               child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Center(
-                                      heightFactor: 0.750,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 1.0),
-                                        child: Hero(
-                                          tag: nikelist[index]['imagenike'],
-                                          child: Image.asset(
-                                            nikelist[index]['imagenike'],
-                                            width: 170,
-                                            height: 200,
-                                          ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Deetails(
+                                            image: nikelist[index]
+                                                ['imagenike'])));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    heightFactor: 0.750,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 1.0),
+                                      child: Hero(
+                                        tag: nikelist[index]['imagenike'],
+                                        child: Image.asset(
+                                          nikelist[index]['imagenike'],
+                                          width: 170,
+                                          height: 200,
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                             ),
-
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         );
                       },
@@ -474,15 +461,9 @@ class HomeState extends State<Home> {
                     // color: Colors.deepPurple.shade100,
 
                     child: InkWell(
-                      splashColor:  Colors.blue.shade100,
-
-                       highlightColor: Colors.blue.shade200,
-                      onTap: (){
-
-
-
-
-                        },
+                      splashColor: Colors.blue.shade100,
+                      highlightColor: Colors.blue.shade200,
+                      onTap: () {},
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -537,18 +518,12 @@ class HomeState extends State<Home> {
                   ),
                 ),
               ),
-
-
-
-
-
             ],
           ),
-        ),
-        backgroundColor: const Color(0xFFEDF2F3),
-        // backgroundColor: const Color(0xFFFFF6F5),
       ),
-    );
+      backgroundColor: const Color(0xFFEDF2F3),
+    ),
+        ));
   }
 }
 
@@ -568,4 +543,5 @@ commonButton({required String imgPath, final VoidCallback? onPressed}) {
         height: 21,
       ));
 }
+
 
