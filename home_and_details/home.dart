@@ -382,10 +382,7 @@ class HomeState extends State<Home> {
                                 ),
                               ),
                             ),
-
-                            //////////////////////////////////////////////////////////////
-                            ////////////
-                            ///////
+                            
                             InkWell(
                               onTap: () {
                                 Navigator.push(
